@@ -6,7 +6,18 @@
     <title>Document</title>
 </head>
 <body>
-    <h2>this is redirect</h2>
+    <h2>Insert url of your favorite artist's spotify page</h2>
+    <!-- <p id="artistID">3TVXtAsR1Inumwj472S9r4</p> -->
+
+    <form action="" id="submitID">
+        <input type="text" id="artistID">
+        <input type="submit">
+    </form>
+
+    <span class="name"></span>
+    <span class="genre"></span>
+    <span class="image"></span>
+
 
     <script>
     const urlParams = new URLSearchParams(window.location.search);
@@ -50,8 +61,8 @@
     async function getProfile() {
     let accessToken = localStorage.getItem('access_token');
 
-    //const response = await fetch('https://api.spotify.com/v1/me', {
-    const response = await fetch('https://api.spotify.com/v1/artists/0TnOYISbd1XYRBk9myaseg', {
+    const response = await fetch('https://api.spotify.com/v1/me', {
+    //const response = await fetch('https://api.spotify.com/v1/artists/0TnOYISbd1XYRBk9myaseg', {
         headers: {
         Authorization: 'Bearer ' + accessToken
         }
@@ -60,7 +71,35 @@
     const data = await response.json();
     console.log(data);
     }
+
+    async function getArtistData(e) {
+    e.preventDefault();
+    let separateID = document.getElementById("artistID").value.split("/");
+    let artistID = separateID[5];
+    let accessToken = localStorage.getItem('access_token');
+    let response2 = await fetch(`https://api.spotify.com/v1/artists/${artistID}`, {
+            headers: {
+            Authorization: 'Bearer ' + accessToken
+            }
+    })
+
+    const data2 = await response2.json();
+    console.log(data2);
+    document.getElementsByClassName("name")[0].innerHTML = data2.name;
+    document.getElementsByClassName("genre")[0].innerHTML = data2.genres;
+    document.getElementsByClassName("image")[0].innerHTML = data2.images[1].url;
+    };
+    getArtistData();
+
+    document.getElementById("submitID").addEventListener("submit", getArtistData);
+    // .then(
+    //     document.getElementsByClassName("name").innerHTML = data2.name
+    // );
+
+    //drakeのページ　https://open.spotify.com/intl-ja/artist/3TVXtAsR1Inumwj472S9r4
+    //ゆるふわ　https://open.spotify.com/intl-ja/artist/5F80x2l9juqR6RLeuACpqS
     </script>
+
     
 </body>
 </html>
