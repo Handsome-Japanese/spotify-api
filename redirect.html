@@ -5,24 +5,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body>
-    <h2>these are the recommendations from your library</h2>
-    <span class="name1-1" style="display: flex; align-items: start;"></span>
-    <span class="genre1-1" style="display: flex; align-items: start;"></span>
-    <span class="image1-1"></span>
-    <span class="url1-1"></span>
+    <div class="firstElement">
+        <h1>These are the recommendations from your library</h1>
+        <button onclick="refreshButton()">Refresh recommendation</button>
+        <div class="tracks">
+            <div class="track">
+                <span class="name1-1 tracktext" style="display: flex; align-items: start;"></span>
+                <span class="image1-1 trackimage"></span>
+                <span class="url1-1 tracktext"></span>
+            </div>
 
-    <span class="name1-2" style="display: flex; align-items: start;"></span>
-    <span class="genre1-2" style="display: flex; align-items: start;"></span>
-    <span class="image1-2"></span>
-    <span class="url1-2"></span>
+            <div class="track">
+                <span class="name1-2 tracktext" style="display: flex; align-items: start;"></span>
+                <span class="image1-2 trackimage"></span>
+                <span class="url1-2 tracktext"></span>
+            </div>
 
-    <span class="name1-3" style="display: flex; align-items: start;"></span>
-    <span class="genre1-3" style="display: flex; align-items: start;"></span>
-    <span class="image1-3"></span>
-    <span class="url1-3"></span>
+            <div class="track">
+                <span class="name1-3 tracktext" style="display: flex; align-items: start;"></span>
+                <span class="image1-3 trackimage"></span>
+                <span class="url1-3 tracktext"></span>
+            </div>
+        </div>
+    </div>
+
+
     <h2>You can also get recommendations from a random artist</h2>
 
     <form action="" id="submitID">
@@ -72,7 +83,7 @@
             .catch(error => {
                 console.error('Error:', error);
             });
-            
+
         async function showArtistData(e) {
             e.preventDefault();
             let separateID = document.getElementById("artistID").value.split("/");
@@ -83,25 +94,21 @@
                     Authorization: 'Bearer ' + accessToken
                 }
             })
-            
+
             const data2 = await response2.json();
             console.log(data2);
             document.getElementsByClassName("name")[0].innerHTML = "name: " + data2.name;
             document.getElementsByClassName("genre")[0].innerHTML = "genres: " + data2.genres;
             document.getElementsByClassName("image")[0].innerHTML = `<image src = ${data2.images[1].url}>`;
-                
-            };
-            showArtistData();
-            document.getElementById("submitID").addEventListener("submit", showArtistData);
+
+        };
+        showArtistData();
+        document.getElementById("submitID").addEventListener("submit", showArtistData);
 
         async function getProfile() {
             let accessToken = localStorage.getItem('access_token');
 
-            //const response = await fetch('https://api.spotify.com/v1/me', {
-            //const response = await fetch('https://api.spotify.com/v1/me/tracks/contains?ids=7ouMYWpwJ422jRcDASZB7P%2C4VqPOruhp5EdPBeR92t6lQ%2C2takcwOaAZWiXQijPHIx7B', {
             const response = await fetch('https://api.spotify.com/v1/me/tracks', {
-                //const response = await fetch('https://api.spotify.com/v1/recommendations?seed_artists=3TVXtAsR1Inumwj472S9r4&seed_genres=canadian_hip_hop', {
-                //const response = await fetch('https://api.spotify.com/v1/artists/0TnOYISbd1XYRBk9myaseg', {
                 headers: {
                     Authorization: 'Bearer ' + accessToken
                 }
@@ -129,38 +136,27 @@
             });
             const data3 = await response3.json();
 
-            document.getElementsByClassName("name1-1")[0].innerHTML = "artist: " + data3.tracks[0].artists[0].name;
-            document.getElementsByClassName("genre1-1")[0].innerHTML = "song: " + data3.tracks[0].name;
-            document.getElementsByClassName("image1-1")[0].innerHTML = `<image src = ${data3.tracks[0].album.images[1].url}>`;
+            document.getElementsByClassName("name1-1")[0].innerHTML = data3.tracks[0].artists[0].name + "『" + data3.tracks[0].name + "』";
+            document.getElementsByClassName("image1-1")[0].innerHTML = `<image src = ${data3.tracks[0].album.images[1].url} class="trackimage">`;
             document.getElementsByClassName("url1-1")[0].innerHTML = `<a href = ${data3.tracks[0].external_urls.spotify}>click to listen</a>`;
-            console.log(data3.tracks[0].external_urls.spotify)
-            
-            
-            document.getElementsByClassName("name1-2")[0].innerHTML = "artist: " + data3.tracks[1].artists[0].name;
-            document.getElementsByClassName("genre1-2")[0].innerHTML = "song: " + data3.tracks[1].name;
-            document.getElementsByClassName("image1-2")[0].innerHTML = `<image src = ${data3.tracks[1].album.images[1].url}>`;
+
+            document.getElementsByClassName("name1-2")[0].innerHTML = data3.tracks[1].artists[0].name + "『" + data3.tracks[1].name + "』";
+            document.getElementsByClassName("image1-2")[0].innerHTML = `<image src = ${data3.tracks[1].album.images[1].url} class="trackimage">`;
             document.getElementsByClassName("url1-2")[0].innerHTML = `<a href = ${data3.tracks[1].external_urls.spotify}>click to listen</a>`;
-            
-            
-            document.getElementsByClassName("name1-3")[0].innerHTML = "artist: " + data3.tracks[2].artists[0].name;
-            document.getElementsByClassName("genre1-3")[0].innerHTML = "song: " + data3.tracks[2].name;
-            document.getElementsByClassName("image1-3")[0].innerHTML = `<image src = ${data3.tracks[2].album.images[1].url}>`;
+
+
+            document.getElementsByClassName("name1-3")[0].innerHTML = data3.tracks[2].artists[0].name + "『" + data3.tracks[2].name + "』";
+            document.getElementsByClassName("image1-3")[0].innerHTML = `<image src = ${data3.tracks[2].album.images[1].url} class="trackimage">`;
             document.getElementsByClassName("url1-3")[0].innerHTML = `<a href = ${data3.tracks[2].external_urls.spotify}>click to listen</a>`;
 
             // genresのspaceは_で置き換えないといけない
             // click to listenな感じにしたい
+            // 参考にする曲 or 表示するrecommendationをボタンとかで変えられるようにしたい（n件表示にするとか？）
         }
 
-        // function makeItUsable(genres) {
-        //     if (genres.includes(" ")) {
-        //         genres.replace(" ", "_")
-        //     } else {
-        //         genres;
-        //     }
-        //     return genres;
-        // }
-
-
+        function refreshButton() {
+            getProfile();
+        }
 
 
     // https://api.spotify.com/v1/recommendations?seed_artists=4NHQUGzhtTLFvgF5SZesLK&seed_genres=classical%2Ccountry&seed_tracks=0c6xIDDpzE81m2q797ordA
