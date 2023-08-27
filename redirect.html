@@ -9,9 +9,15 @@
 </head>
 
 <body>
+    <nav>
+        <p>Spotify Auto Recomendation Generator</p>
+    </nav>
+
     <div class="firstElement">
-        <h1>These are the recommendations from your library</h1>
-        <button onclick="refreshButton()">Refresh recommendation</button>
+        <div class="header">
+            <h1>Tracks below are the recommendations from the latest track in your library</h1>
+            <button onclick=refreshButton() class="refreshButton">Refresh recommendation</button>
+        </div>
         <div class="tracks">
             <div class="track">
                 <span class="name1-1 tracktext" style="display: flex; align-items: start;"></span>
@@ -33,17 +39,45 @@
         </div>
     </div>
 
+    <div class="secondElement">
+        <div class="header2">
+            <div class="left-content">
+                <h2>You can also get recommendations from any artist</h2>
 
-    <h2>You can also get recommendations from a random artist</h2>
+                <form action="" id="submitID">
+                    <input type="text" id="artistID" placeholder="Enter an artist's name">
+                    <input type="submit">
+                </form>
 
-    <form action="" id="submitID">
-        <input type="text" id="artistID" placeholder="artist's spotify page url">
-        <input type="submit">
-    </form>
+                <p class="name">Artist: </p>
+            </div>
 
-    <span class="name" style="display: flex; align-items: start;"></span>
-    <span class="genre" style="display: flex; align-items: start;"></span>
-    <span class="image"></span>
+            <div class="right-content">
+                <span class="name" style="display: flex; align-items: start;"></span>
+                <span class="image"></span>
+            </div>
+        </div>
+
+        <div class="tracks">
+            <div class="track">
+                <span class="name2-1 tracktext" style="display: flex; align-items: start;"></span>
+                <span class="image2-1 trackimage"></span>
+                <span class="url2-1 tracktext"></span>
+            </div>
+
+            <div class="track">
+                <span class="name2-2 tracktext" style="display: flex; align-items: start;"></span>
+                <span class="image2-2 trackimage"></span>
+                <span class="url2-2 tracktext"></span>
+            </div>
+
+            <div class="track">
+                <span class="name2-3 tracktext" style="display: flex; align-items: start;"></span>
+                <span class="image2-3 trackimage"></span>
+                <span class="url2-3 tracktext"></span>
+            </div>
+        </div>
+    </div>
 
 
     <script>
@@ -79,31 +113,12 @@
             .then(data => {
                 localStorage.setItem('access_token', data.access_token);
                 getProfile();
+                fillwithDrake();
             })
             .catch(error => {
                 console.error('Error:', error);
             });
 
-        async function showArtistData(e) {
-            e.preventDefault();
-            let separateID = document.getElementById("artistID").value.split("/");
-            let artistID = separateID[5];
-            let accessToken = localStorage.getItem('access_token');
-            let response2 = await fetch(`https://api.spotify.com/v1/artists/${artistID}`, {
-                headers: {
-                    Authorization: 'Bearer ' + accessToken
-                }
-            })
-
-            const data2 = await response2.json();
-            console.log(data2);
-            document.getElementsByClassName("name")[0].innerHTML = "name: " + data2.name;
-            document.getElementsByClassName("genre")[0].innerHTML = "genres: " + data2.genres;
-            document.getElementsByClassName("image")[0].innerHTML = `<image src = ${data2.images[1].url}>`;
-
-        };
-        showArtistData();
-        document.getElementById("submitID").addEventListener("submit", showArtistData);
 
         async function getProfile() {
             let accessToken = localStorage.getItem('access_token');
@@ -118,8 +133,6 @@
             console.log(data);
             showRecomendation(data);
         }
-
-
 
         async function showRecomendation(data) {
             let recomendationURL = "https://api.spotify.com/v1/recommendations?"
@@ -158,15 +171,123 @@
             getProfile();
         }
 
+        async function showArtistData(e) {
+            e.preventDefault();
+            console.log(e.target.value);
+            let artistName = document.getElementById('artistID').value;
+            let getArtistURL = `https://api.spotify.com/v1/search?q=${artistName}&type=artist`
+            let accessToken1 = localStorage.getItem('access_token');
+            let response6 = await fetch(getArtistURL, {
+                headers: {
+                    Authorization: 'Bearer ' + accessToken1
+                }
+            })
+            const dataX = await response6.json();
+            console.log(dataX);
+            console.log(dataX.artists.items[0]);
 
-    // https://api.spotify.com/v1/recommendations?seed_artists=4NHQUGzhtTLFvgF5SZesLK&seed_genres=classical%2Ccountry&seed_tracks=0c6xIDDpzE81m2q797ordA
-    // .then(
-    //     document.getElementsByClassName("name").innerHTML = data2.name
-    // );
+            let artistID = dataX.artists.items[0].id;
+            let accessToken = localStorage.getItem('access_token');
+            let response2 = await fetch(`https://api.spotify.com/v1/artists/${artistID}`, {
+                headers: {
+                    Authorization: 'Bearer ' + accessToken
+                }
+            })
+            const data2 = await response2.json();
+            console.log(data2);
 
-    //drakeのページ　https://open.spotify.com/intl-ja/artist/3TVXtAsR1Inumwj472S9r4
-    //ゆるふわ　https://open.spotify.com/intl-ja/artist/5F80x2l9juqR6RLeuACpqS
-    //track url https://open.spotify.com/intl-ja/track/1ogsoWs0VHSgveJY86xW4Z?si=0a788af5a49d40da
+            document.getElementsByClassName("name")[0].innerHTML = "Artist: " + data2.name;
+            //document.getElementsByClassName("image")[0].innerHTML = `<image src = ${data2.images[1].url}>`;
+            document.getElementsByClassName("right-content")[0].style.backgroundImage = `url(${data2.images[0].url})`;
+            document.getElementsByClassName("right-content")[0].style.backgroundRepeat = "no-repeat";
+            document.getElementsByClassName("right-content")[0].style.backgroundSize = "cover";
+            document.getElementsByClassName("right-content")[0].style.backgroundPosition = "50% 50%";
+
+            showRecomendation2(data2)
+        };
+        // showArtistData();
+        document.getElementById("submitID").addEventListener("submit", showArtistData);
+
+        async function showRecomendation2(data) {
+            let recomendationURL = "https://api.spotify.com/v1/recommendations?"
+            let artistID = data.id;
+            recomendationURL += "seed_artists=" + artistID;
+            console.log(recomendationURL);
+            // console.log("hello");
+
+            let accessToken = localStorage.getItem('access_token');
+
+            const response3 = await fetch(recomendationURL, {
+                headers: {
+                    Authorization: 'Bearer ' + accessToken
+                }
+            });
+            const data3 = await response3.json();
+            console.log(data3);
+
+            document.getElementsByClassName("name2-1")[0].innerHTML = data3.tracks[0].artists[0].name + "『" + data3.tracks[0].name + "』";
+            document.getElementsByClassName("image2-1")[0].innerHTML = `<image src = ${data3.tracks[0].album.images[1].url} class="trackimage">`;
+            document.getElementsByClassName("url2-1")[0].innerHTML = `<a href = ${data3.tracks[0].external_urls.spotify}>click to listen</a>`;
+
+            document.getElementsByClassName("name2-2")[0].innerHTML = data3.tracks[1].artists[0].name + "『" + data3.tracks[1].name + "』";
+            document.getElementsByClassName("image2-2")[0].innerHTML = `<image src = ${data3.tracks[1].album.images[1].url} class="trackimage">`;
+            document.getElementsByClassName("url2-2")[0].innerHTML = `<a href = ${data3.tracks[1].external_urls.spotify}>click to listen</a>`;
+
+            document.getElementsByClassName("name2-3")[0].innerHTML = data3.tracks[2].artists[0].name + "『" + data3.tracks[2].name + "』";
+            document.getElementsByClassName("image2-3")[0].innerHTML = `<image src = ${data3.tracks[2].album.images[1].url} class="trackimage">`;
+            document.getElementsByClassName("url2-3")[0].innerHTML = `<a href = ${data3.tracks[2].external_urls.spotify}>click to listen</a>`;
+
+        }
+
+        async function fillwithDrake() {
+            let recomendationURL = "https://api.spotify.com/v1/recommendations?seed_artists=3TVXtAsR1Inumwj472S9r4"
+            let DrakeURL = "https//:open.spotify.com/intl-ja/artist/3TVXtAsR1Inumwj472S9r4";
+            //console.log(recomendationURL);
+
+            //document.getElementById("artistID").value += DrakeURL;
+            let separateID = recomendationURL.split("=");
+            let artistID = separateID[separateID.length-1];
+            console.log(artistID)
+            let accessToken1 = localStorage.getItem('access_token');
+            let response2 = await fetch(`https://api.spotify.com/v1/artists/${artistID}`, {
+                headers: {
+                    Authorization: 'Bearer ' + accessToken1
+                }
+            })
+            const data2 = await response2.json();
+            console.log(data2);
+
+            document.getElementsByClassName("name")[0].innerHTML = "Artist: " + data2.name;
+            //document.getElementsByClassName("image")[0].innerHTML = `<image src = ${data2.images[1].url}>`;
+            document.getElementsByClassName("right-content")[0].style.backgroundImage = `url(${data2.images[0].url})`;
+            document.getElementsByClassName("right-content")[0].style.backgroundRepeat = "no-repeat";
+            document.getElementsByClassName("right-content")[0].style.backgroundSize = "cover";
+            document.getElementsByClassName("right-content")[0].style.backgroundPosition = "50% 50%";
+
+
+            let accessToken2 = localStorage.getItem('access_token');
+
+            const response3 = await fetch(recomendationURL, {
+                headers: {
+                    Authorization: 'Bearer ' + accessToken2
+                }
+            });
+            const data3 = await response3.json();
+            console.log(data3);
+
+            document.getElementsByClassName("name2-1")[0].innerHTML = data3.tracks[0].artists[0].name + "『" + data3.tracks[0].name + "』";
+            document.getElementsByClassName("image2-1")[0].innerHTML = `<image src = ${data3.tracks[0].album.images[1].url} class="trackimage">`;
+            document.getElementsByClassName("url2-1")[0].innerHTML = `<a href = ${data3.tracks[0].external_urls.spotify}>click to listen</a>`;
+
+            document.getElementsByClassName("name2-2")[0].innerHTML = data3.tracks[1].artists[0].name + "『" + data3.tracks[1].name + "』";
+            document.getElementsByClassName("image2-2")[0].innerHTML = `<image src = ${data3.tracks[1].album.images[1].url} class="trackimage">`;
+            document.getElementsByClassName("url2-2")[0].innerHTML = `<a href = ${data3.tracks[1].external_urls.spotify}>click to listen</a>`;
+
+            document.getElementsByClassName("name2-3")[0].innerHTML = data3.tracks[2].artists[0].name + "『" + data3.tracks[2].name + "』";
+            document.getElementsByClassName("image2-3")[0].innerHTML = `<image src = ${data3.tracks[2].album.images[1].url} class="trackimage">`;
+            document.getElementsByClassName("url2-3")[0].innerHTML = `<a href = ${data3.tracks[2].external_urls.spotify}>click to listen</a>`;
+
+        }
     </script>
 
 

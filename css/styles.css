@@ -16,17 +16,72 @@ table{border-collapse:collapse;border-spacing:0}
 hr{display:block;height:1px;border:0;border-top:1px solid #ccc;margin:1em 0;padding:0}
 input,select{vertical-align:middle}
 
+/* Nav */
+nav {
+    background-color: black;
+    color: white;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
+nav p {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 30px;
+}
+
+/* Body */
+body {
+    /* background-color: black; */
+}
+
+
+/* First Element */
 .firstElement {
     width: 100%;
 }
 
-/* .tracks {
-} */
+.refreshButton {
+    margin-top: 20px;
+}
 
+.header {
+    width: 100%;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* Second Element */
+.header2 {
+    width: 100%;
+    height: 400px;
+    display: flex;
+}
+
+.left-content {
+    width: 60%;
+    border: 1px solid red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.right-content {
+    width: 40%;
+    border: 1px solid red;
+}
+
+/* About track */
 .tracks {
     display: flex;
     justify-content: space-evenly;
+    /* border: 1px solid red; */
+    height: 150%;
 }
 
 .tracktext {
@@ -34,19 +89,20 @@ input,select{vertical-align:middle}
 }
 
 .track {
-    width: 33%;
-    height: 100%;
+    width: 30%;
+    height: 150%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    border:1px solid blue;
+    /* border:1px solid blue; */
+    background-color: yellow;
+    border-radius: 50px;
 }
 
 .trackimage {
     width: 100%;
     height: 100%;
     display: flex;
-    /* align-items: center; */
     justify-content: center;
 }
 
@@ -54,3 +110,20 @@ input,select{vertical-align:middle}
     width: 80%;
     height: 80%;
 }
+
+span,h1,h2 {
+    /* color: white; */
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* レコメンデーションで対象に取るやつを変えられるボタンがあると面白いかもしれない */
+/* ↑ getting from: 的な？ */
+
+/* track image をwrapperに入れてどうにかしないとtrack自体の大きさをいじれないかもしれない */
+/* image自体にURLを付与したい */
+
+/* place holderにあるやつを一段下に持ってきてみる */
+/* exampleでドレイクのURLを置いときたいかも */
+/* fillwithDrakeでright-contentに画像が表示されない */
+/* 多分最初に置いてるドレイクのURLが違うっぽい、それに応じてartistIDらへんも変えなきゃかも */
+/* リフレッシュボタンが必要 */
