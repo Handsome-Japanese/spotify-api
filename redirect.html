@@ -20,19 +20,19 @@
         </div>
         <div class="tracks">
             <div class="track">
-                <span class="name1-1 tracktext" style="display: flex; align-items: start;"></span>
+                <span class="name1-1 tracktext"></span>
                 <span class="image1-1 trackimage"></span>
                 <span class="url1-1 tracktext"></span>
             </div>
 
             <div class="track">
-                <span class="name1-2 tracktext" style="display: flex; align-items: start;"></span>
+                <span class="name1-2 tracktext"></span>
                 <span class="image1-2 trackimage"></span>
                 <span class="url1-2 tracktext"></span>
             </div>
 
             <div class="track">
-                <span class="name1-3 tracktext" style="display: flex; align-items: start;"></span>
+                <span class="name1-3 tracktext"></span>
                 <span class="image1-3 trackimage"></span>
                 <span class="url1-3 tracktext"></span>
             </div>
@@ -46,33 +46,33 @@
 
                 <form action="" id="submitID">
                     <input type="text" id="artistID" placeholder="Enter an artist's name">
-                    <input type="submit">
+                    <button>submit</button>
                 </form>
 
                 <p class="name">Artist: </p>
             </div>
 
             <div class="right-content">
-                <span class="name" style="display: flex; align-items: start;"></span>
+                <span class="name"></span>
                 <span class="image"></span>
             </div>
         </div>
 
         <div class="tracks">
             <div class="track">
-                <span class="name2-1 tracktext" style="display: flex; align-items: start;"></span>
+                <span class="name2-1 tracktext"></span>
                 <span class="image2-1 trackimage"></span>
                 <span class="url2-1 tracktext"></span>
             </div>
 
             <div class="track">
-                <span class="name2-2 tracktext" style="display: flex; align-items: start;"></span>
+                <span class="name2-2 tracktext"></span>
                 <span class="image2-2 trackimage"></span>
                 <span class="url2-2 tracktext"></span>
             </div>
 
             <div class="track">
-                <span class="name2-3 tracktext" style="display: flex; align-items: start;"></span>
+                <span class="name2-3 tracktext"></span>
                 <span class="image2-3 trackimage"></span>
                 <span class="url2-3 tracktext"></span>
             </div>
@@ -150,17 +150,17 @@
             const data3 = await response3.json();
 
             document.getElementsByClassName("name1-1")[0].innerHTML = data3.tracks[0].artists[0].name + "『" + data3.tracks[0].name + "』";
-            document.getElementsByClassName("image1-1")[0].innerHTML = `<image src = ${data3.tracks[0].album.images[1].url} class="trackimage">`;
-            document.getElementsByClassName("url1-1")[0].innerHTML = `<a href = ${data3.tracks[0].external_urls.spotify}>click to listen</a>`;
+            document.getElementsByClassName("image1-1")[0].innerHTML = `<a href = ${data3.tracks[0].external_urls.spotify} class="link"><image src = ${data3.tracks[0].album.images[1].url} class="trackimage2"></a>`;
+            document.getElementsByClassName("url1-1")[0].innerHTML = `<a class = tracklink href = ${data3.tracks[0].external_urls.spotify}>click to listen</a>`;
 
             document.getElementsByClassName("name1-2")[0].innerHTML = data3.tracks[1].artists[0].name + "『" + data3.tracks[1].name + "』";
-            document.getElementsByClassName("image1-2")[0].innerHTML = `<image src = ${data3.tracks[1].album.images[1].url} class="trackimage">`;
-            document.getElementsByClassName("url1-2")[0].innerHTML = `<a href = ${data3.tracks[1].external_urls.spotify}>click to listen</a>`;
+            document.getElementsByClassName("image1-2")[0].innerHTML = `<a href = ${data3.tracks[1].external_urls.spotify} class="link"><image src = ${data3.tracks[1].album.images[1].url} class="trackimage2"></a>`;
+            document.getElementsByClassName("url1-2")[0].innerHTML = `<a class = tracklink href = ${data3.tracks[1].external_urls.spotify}>click to listen</a>`;
 
 
             document.getElementsByClassName("name1-3")[0].innerHTML = data3.tracks[2].artists[0].name + "『" + data3.tracks[2].name + "』";
-            document.getElementsByClassName("image1-3")[0].innerHTML = `<image src = ${data3.tracks[2].album.images[1].url} class="trackimage">`;
-            document.getElementsByClassName("url1-3")[0].innerHTML = `<a href = ${data3.tracks[2].external_urls.spotify}>click to listen</a>`;
+            document.getElementsByClassName("image1-3")[0].innerHTML = `<a href = ${data3.tracks[2].external_urls.spotify} class="link"><image src = ${data3.tracks[2].album.images[1].url} class="trackimage2"></a>`;
+            document.getElementsByClassName("url1-3")[0].innerHTML = `<a class = tracklink href = ${data3.tracks[2].external_urls.spotify}>click to listen</a>`;
 
             // genresのspaceは_で置き換えないといけない
             // click to listenな感じにしたい
@@ -226,16 +226,16 @@
             console.log(data3);
 
             document.getElementsByClassName("name2-1")[0].innerHTML = data3.tracks[0].artists[0].name + "『" + data3.tracks[0].name + "』";
-            document.getElementsByClassName("image2-1")[0].innerHTML = `<image src = ${data3.tracks[0].album.images[1].url} class="trackimage">`;
-            document.getElementsByClassName("url2-1")[0].innerHTML = `<a href = ${data3.tracks[0].external_urls.spotify}>click to listen</a>`;
+            document.getElementsByClassName("image2-1")[0].innerHTML = `<a href = ${data3.tracks[2].external_urls.spotify} class="link"><image src = ${data3.tracks[0].album.images[1].url} class="trackimage2"</a>`;
+            document.getElementsByClassName("url2-1")[0].innerHTML = `<a class = tracklink href = ${data3.tracks[0].external_urls.spotify}>click to listen</a>`;
 
             document.getElementsByClassName("name2-2")[0].innerHTML = data3.tracks[1].artists[0].name + "『" + data3.tracks[1].name + "』";
-            document.getElementsByClassName("image2-2")[0].innerHTML = `<image src = ${data3.tracks[1].album.images[1].url} class="trackimage">`;
-            document.getElementsByClassName("url2-2")[0].innerHTML = `<a href = ${data3.tracks[1].external_urls.spotify}>click to listen</a>`;
+            document.getElementsByClassName("image2-2")[0].innerHTML = `<a href = ${data3.tracks[1].external_urls.spotify} class="link"><image src = ${data3.tracks[1].album.images[1].url} class="trackimage2"></a>`;
+            document.getElementsByClassName("url2-2")[0].innerHTML = `<a class = tracklink href = ${data3.tracks[1].external_urls.spotify}>click to listen</a>`;
 
             document.getElementsByClassName("name2-3")[0].innerHTML = data3.tracks[2].artists[0].name + "『" + data3.tracks[2].name + "』";
-            document.getElementsByClassName("image2-3")[0].innerHTML = `<image src = ${data3.tracks[2].album.images[1].url} class="trackimage">`;
-            document.getElementsByClassName("url2-3")[0].innerHTML = `<a href = ${data3.tracks[2].external_urls.spotify}>click to listen</a>`;
+            document.getElementsByClassName("image2-3")[0].innerHTML = `<a href = ${data3.tracks[2].external_urls.spotify} class="link"><image src = ${data3.tracks[2].album.images[1].url} class="trackimage2"></a>`;
+            document.getElementsByClassName("url2-3")[0].innerHTML = `<a class = tracklink href = ${data3.tracks[2].external_urls.spotify}>click to listen</a>`;
 
         }
 
@@ -276,16 +276,16 @@
             console.log(data3);
 
             document.getElementsByClassName("name2-1")[0].innerHTML = data3.tracks[0].artists[0].name + "『" + data3.tracks[0].name + "』";
-            document.getElementsByClassName("image2-1")[0].innerHTML = `<image src = ${data3.tracks[0].album.images[1].url} class="trackimage">`;
-            document.getElementsByClassName("url2-1")[0].innerHTML = `<a href = ${data3.tracks[0].external_urls.spotify}>click to listen</a>`;
+            document.getElementsByClassName("image2-1")[0].innerHTML = `<a href = ${data3.tracks[0].external_urls.spotify} class="link"><image src = ${data3.tracks[0].album.images[1].url} class="trackimage2"></a>`;
+            document.getElementsByClassName("url2-1")[0].innerHTML = `<a class = tracklink href = ${data3.tracks[0].external_urls.spotify}>click to listen</a>`;
 
             document.getElementsByClassName("name2-2")[0].innerHTML = data3.tracks[1].artists[0].name + "『" + data3.tracks[1].name + "』";
-            document.getElementsByClassName("image2-2")[0].innerHTML = `<image src = ${data3.tracks[1].album.images[1].url} class="trackimage">`;
-            document.getElementsByClassName("url2-2")[0].innerHTML = `<a href = ${data3.tracks[1].external_urls.spotify}>click to listen</a>`;
+            document.getElementsByClassName("image2-2")[0].innerHTML = `<a href = ${data3.tracks[1].external_urls.spotify} class="link"><image src = ${data3.tracks[1].album.images[1].url} class="trackimage2"></a>`;
+            document.getElementsByClassName("url2-2")[0].innerHTML = `<a class = tracklink href = ${data3.tracks[1].external_urls.spotify}>click to listen</a>`;
 
             document.getElementsByClassName("name2-3")[0].innerHTML = data3.tracks[2].artists[0].name + "『" + data3.tracks[2].name + "』";
-            document.getElementsByClassName("image2-3")[0].innerHTML = `<image src = ${data3.tracks[2].album.images[1].url} class="trackimage">`;
-            document.getElementsByClassName("url2-3")[0].innerHTML = `<a href = ${data3.tracks[2].external_urls.spotify}>click to listen</a>`;
+            document.getElementsByClassName("image2-3")[0].innerHTML = `<a href = ${data3.tracks[2].external_urls.spotify} class="link"><image src = ${data3.tracks[2].album.images[1].url} class="trackimage2"></a>`;
+            document.getElementsByClassName("url2-3")[0].innerHTML = `<a class = tracklink href = ${data3.tracks[2].external_urls.spotify}>click to listen</a>`;
 
         }
     </script>
